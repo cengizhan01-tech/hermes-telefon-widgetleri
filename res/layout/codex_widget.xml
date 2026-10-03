@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="14dp"
+    android:background="@drawable/bg_aurora">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/c_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CHATGPT KOTA"
+            android:textColor="#C4B5FD"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+        <TextView
+            android:id="@+id/c_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="↻"
+            android:textColor="#C4B5FD"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <TextView android:id="@+id/c_sec1" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="6dp" android:text="5 SAATLİK PENCERE" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView
+        android:id="@+id/c_ana"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="…"
+        android:textColor="#34D399"
+        android:textSize="44sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/c_ana_etiket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#E0E7FF"
+        android:textSize="12sp" />
+    <ProgressBar
+        android:id="@+id/c_bar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        android:max="1000"
+        android:progress="500"
+        android:progressDrawable="@drawable/bar_bg" />
+    <TextView android:id="@+id/c_tempo1" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+
+    <TextView android:id="@+id/c_sec2" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:text="HAFTALIK PENCERE" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView
+        android:id="@+id/c_uzun_buyuk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#34D399"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/c_uzun_yazi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#E0E7FF"
+        android:textSize="12sp" />
+    <ProgressBar
+        android:id="@+id/c_bar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        android:max="1000"
+        android:progress="500"
+        android:progressDrawable="@drawable/bar_bg" />
+    <TextView android:id="@+id/c_tempo2" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+
+    <TextView android:id="@+id/c_sec3" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:text="NASIL OKUNUR" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/c_not" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/c_alt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text=""
+        android:textColor="#A5B4FC"
+        android:textSize="10sp" />
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/bg_aurora">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/h_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="HERMES"
+            android:textColor="#C4B5FD"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+        <TextView
+            android:id="@+id/h_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="↻"
+            android:textColor="#C4B5FD"
+            android:textSize="20sp"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/h_overall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="…"
+        android:textColor="#34D399"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <TextView android:id="@+id/h_gateway" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+    <TextView android:id="@+id/h_model" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/h_cpu_t" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="CPU" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+            <ProgressBar android:id="@+id/h_cpu" style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent" android:layout_height="7dp" android:layout_marginTop="3dp"
+                android:max="1000" android:progress="100" android:progressDrawable="@drawable/bar_bg" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp" android:orientation="vertical">
+            <TextView android:id="@+id/h_ram_t" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="RAM" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+            <ProgressBar android:id="@+id/h_ram" style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent" android:layout_height="7dp" android:layout_marginTop="3dp"
+                android:max="1000" android:progress="100" android:progressDrawable="@drawable/bar_bg" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/h_disk_t" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Disk" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+            <ProgressBar android:id="@+id/h_disk" style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent" android:layout_height="7dp" android:layout_marginTop="3dp"
+                android:max="1000" android:progress="100" android:progressDrawable="@drawable/bar_bg" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView android:id="@+id/h_detay" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+
+    <TextView android:id="@+id/h_sec_isi" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="9dp" android:text="SICAKLIK, FAN VE GÜÇ" android:textColor="#C4B5FD" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/h_isi" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+
+    <TextView android:id="@+id/h_sec_ssd" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="9dp" android:text="SSD SAĞLIĞI" android:textColor="#C4B5FD" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/h_ssd" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+
+    <TextView android:id="@+id/h_sec_calisma" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="9dp" android:text="ÇALIŞMA SÜRESİ VE SAĞLIK" android:textColor="#C4B5FD" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/h_calisma" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+
+    <TextView android:id="@+id/h_sec_svc" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="9dp" android:text="SERVİSLER" android:textColor="#C4B5FD" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.12" />
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:orientation="horizontal">
+        <TextView android:id="@+id/h_s1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:orientation="horizontal">
+        <TextView android:id="@+id/h_s6" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s7" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s8" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s9" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+        <TextView android:id="@+id/h_s10" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="4dp" android:background="@drawable/chip_bg" android:padding="4dp" android:gravity="center" android:text="" android:textSize="10sp" android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/h_updated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="#A5B4FC"
+        android:textSize="10sp" />
+</LinearLayout>

@@ -1,0 +1,28 @@
+# Gizli / yerel / büyük dosyalar - ASLA commit edilmez
+*.keystore
+*.jks
+*.p12
+*.pem
+*.key
+.env
+local.properties
+
+# Derleme çıktıları ve araçlar
+build/
+*.apk
+*.aab
+*.dex
+*.class
+jdk*/
+sdk/
+cmdtools*
+*.zip
+*.log
+*.done
+platform-tools/
+
+# Telefondan/oturumlardan çıkan veriler
+claude-limit.json
+codex-kota.json
+screenshots/
+*.png
