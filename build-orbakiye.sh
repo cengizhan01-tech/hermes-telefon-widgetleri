@@ -2,15 +2,15 @@
 # OR Bakiye APK derleme betiği (Gradle yok; aapt2 + javac + d8 + apksigner).
 #
 # Gerekli ortam değişkenleri:
-#   SUNUCU_IP     kendi sunucunun IP'si (örn. Tailscale IP'n). Kaynaktaki @SUNUCU_IP@ yer tutucusu derlemede bununla değişir.
 #   KEYSTORE_PASS APK imza anahtarının parolası (repoda TUTULMAZ).
 #   TOOLS         içinde jdk-17*/ ve sdk/ (build-tools/34.0.0, platforms/android-34) bulunan klasör.
-#                 Windows'ta özel karakter/boşluksuz bir yol kullan (örn. C:\android-build).
+#                 Windows'ta özel karakter/boşluksuz bir yol kullan (örn. C:ndroid-build).
 # İsteğe bağlı:  KEYSTORE_FILE (varsayılan: $TOOLS/orbakiye.keystore; yoksa oluşturulur)
+#                VERSION_CODE (varsayılan 2), VERSION_NAME (varsayılan 1.1.0)
+# Sunucu adresi derlemede VERİLMEZ; uygulamada "Sunucu adresi" kutusuna girilir.
 #
-# Kullanım (Git Bash):  SUNUCU_IP=100.x.y.z KEYSTORE_PASS=... TOOLS=/c/android-build bash build-orbakiye.sh
+# Kullanım (Git Bash):  KEYSTORE_PASS=... TOOLS=/c/android-build bash build-orbakiye.sh
 set -e
-: "${SUNUCU_IP:?SUNUCU_IP ayarla (kendi sunucu IP adresin)}"
 : "${KEYSTORE_PASS:?KEYSTORE_PASS ayarla (keystore parolasi; repoda tutulmaz)}"
 : "${TOOLS:?TOOLS ayarla (jdk-17*/ ve sdk/ içeren klasör)}"
 PROJE="$(cd "$(dirname "$0")" && pwd)"
@@ -21,16 +21,15 @@ KS="${KEYSTORE_FILE:-$TOOLS/orbakiye.keystore}"
 export PATH="$JDK/bin:$PATH"
 PY="$(command -v python || command -v py || command -v python3)"
 
-# Çalışma klasörü: kaynak kopyalanır, @SUNUCU_IP@ yer tutucusu değiştirilir (repodaki dosyalar değişmez)
+# Çalışma klasörü: kaynak kopyalanır (repodaki dosyalar değişmez)
 W="$TOOLS/_work"
 rm -rf "$W" && mkdir -p "$W/s" "$W/gen" "$W/classes" "$W/dex"
 cp -r "$PROJE/src" "$PROJE/res" "$PROJE/AndroidManifest.xml" "$W/s/"
-find "$W/s" -type f \( -name '*.java' -o -name '*.xml' \) -exec sed -i "s/@SUNUCU_IP@/$SUNUCU_IP/g" {} +
 cd "$W"
 
 "$BT/aapt2.exe" compile --dir s/res -o res.zip
 "$BT/aapt2.exe" link -o app.unsigned.apk -I "$AJ" --manifest s/AndroidManifest.xml \
-  --java gen --min-sdk-version 24 --target-sdk-version 34 --version-code 1 --version-name 1.0 res.zip
+  --java gen --min-sdk-version 24 --target-sdk-version 34 --version-code "${VERSION_CODE:-2}" --version-name "${VERSION_NAME:-1.1.0}" res.zip
 javac --release 8 -encoding UTF-8 -classpath "$AJ" -d classes $(find s/src gen -name '*.java') 2>&1 | grep -v '^Note:' || true
 java -cp "$BT/lib/d8.jar" com.android.tools.r8.D8 --lib "$AJ" --min-api 24 --output dex $(find classes -name '*.class')
 "$PY" - <<'PY'

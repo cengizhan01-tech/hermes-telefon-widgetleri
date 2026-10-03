@@ -16,7 +16,6 @@ import java.util.Locale;
  * anlasilir Turkce metne cevirir. E-posta/parola yalniz uygulamanin ozel alaninda tutulur.
  */
 public class BeszelApi {
-    static final String BASE = "http://@SUNUCU_IP@:8090";
     static final String PREFS = "or";
     static Context ctx;
     static String jeton = null;
@@ -65,7 +64,7 @@ public class BeszelApi {
     }
 
     static String istek(String yol, String govde, String yetki) throws Exception {
-        HttpURLConnection h = (HttpURLConnection) new URL(BASE + yol).openConnection();
+        HttpURLConnection h = (HttpURLConnection) new URL(Sunucu.ip() + ":8090" + yol).openConnection();
         h.setConnectTimeout(4000);
         h.setReadTimeout(6000);
         h.setRequestProperty("Accept", "application/json");
@@ -151,6 +150,10 @@ public class BeszelApi {
         Sonuc s = new Sonuc();
         if (ctx == null || mail().length() < 3 || parola().length() < 3) {
             s.girisYok = true;
+            return s;
+        }
+        if (!Sunucu.var()) {
+            s.hata = "Sunucu adresi girilmemiş (uygulamayı aç)";
             return s;
         }
         String t;

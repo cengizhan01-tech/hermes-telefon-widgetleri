@@ -20,9 +20,9 @@ import java.util.concurrent.TimeUnit;
  * ve her servisin kendi portuna dogrudan saglik sorgusu. Hicbir sifre/anahtar kullanilmaz.
  */
 public class HermesApi {
-    static final String IP = "http://@SUNUCU_IP@";
-    static final String HP = IP + ":3000";
-    static final String HD = IP + ":9119";
+    static String ip() { return Sunucu.ip(); }
+    static String hp() { return ip() + ":3000"; }
+    static String hd() { return ip() + ":9119"; }
     static android.content.Context ctx;
 
     static final String[][] SERVISLER = new String[][] {
@@ -90,7 +90,7 @@ public class HermesApi {
         s.kisa = kisa;
         long t0 = System.nanoTime();
         try {
-            HttpURLConnection h = (HttpURLConnection) new URL(IP + ":" + port + "/").openConnection();
+            HttpURLConnection h = (HttpURLConnection) new URL(ip() + ":" + port + "/").openConnection();
             h.setConnectTimeout(3500);
             h.setReadTimeout(3500);
             h.setInstanceFollowRedirects(false);
@@ -109,8 +109,12 @@ public class HermesApi {
     static Veri getir() {
         final Veri v = new Veri();
         v.zaman = System.currentTimeMillis();
+        if (!Sunucu.var()) {
+            v.hata = "Sunucu adresi girilmemiş (uygulamayı aç)";
+            return v;
+        }
         try {
-            JSONObject cpu = new JSONObject(get(HP + "/api/widgets/resources?type=cpu", 4000)).getJSONObject("cpu");
+            JSONObject cpu = new JSONObject(get(hp() + "/api/widgets/resources?type=cpu", 4000)).getJSONObject("cpu");
             v.cpu = cpu.optDouble("usage", 0);
             v.load = cpu.optDouble("load", 0);
             v.ulasildi = true;
@@ -119,7 +123,7 @@ public class HermesApi {
             return v;
         }
         try {
-            JSONObject m = new JSONObject(get(HP + "/api/widgets/resources?type=memory", 4000)).getJSONObject("memory");
+            JSONObject m = new JSONObject(get(hp() + "/api/widgets/resources?type=memory", 4000)).getJSONObject("memory");
             v.ramToplam = m.optLong("total");
             v.ramMusait = m.optLong("available");
             v.ramKullanilan = v.ramToplam - v.ramMusait;
@@ -129,17 +133,17 @@ public class HermesApi {
             v.swapKullanilan = m.optLong("swapused");
         } catch (Exception e) { }
         try {
-            JSONObject d = new JSONObject(get(HP + "/api/widgets/resources?type=disk&target=/", 4000)).getJSONObject("drive");
+            JSONObject d = new JSONObject(get(hp() + "/api/widgets/resources?type=disk&target=/", 4000)).getJSONObject("drive");
             v.diskToplam = d.optLong("size");
             v.diskKullanilan = d.optLong("used");
             v.diskBos = d.optLong("available");
             v.diskYuzde = d.optDouble("use", 0);
         } catch (Exception e) { }
         try {
-            v.acikSn = new JSONObject(get(HP + "/api/widgets/resources?type=uptime", 4000)).optDouble("uptime", 0);
+            v.acikSn = new JSONObject(get(hp() + "/api/widgets/resources?type=uptime", 4000)).optDouble("uptime", 0);
         } catch (Exception e) { }
         try {
-            JSONObject t = new JSONObject(get(HP + "/api/widgets/resources?type=cputemp", 4000)).getJSONObject("cputemp");
+            JSONObject t = new JSONObject(get(hp() + "/api/widgets/resources?type=cputemp", 4000)).getJSONObject("cputemp");
             v.sicak = t.optDouble("main", -1);
             v.sicakMax = t.optDouble("max", -1);
             v.sicakChipset = t.optDouble("chipset", -1);
@@ -154,7 +158,7 @@ public class HermesApi {
             }
         } catch (Exception e) { }
         try {
-            JSONObject s = new JSONObject(get(HD + "/api/status", 4000));
+            JSONObject s = new JSONObject(get(hd() + "/api/status", 4000));
             v.surum = s.optString("version", "-");
             v.genel = s.optString("overall", "-");
             v.gwDurum = s.optString("gateway_state", "-");
@@ -191,7 +195,7 @@ public class HermesApi {
             }
         } catch (Exception e) { }
         try {
-            JSONObject mi = new JSONObject(get(HD + "/api/model/info", 4000));
+            JSONObject mi = new JSONObject(get(hd() + "/api/model/info", 4000));
             String mad = mi.optString("model", "-");
             int ix = mad.lastIndexOf('/');
             v.model = ix >= 0 ? mad.substring(ix + 1) : mad;
@@ -267,7 +271,7 @@ public class HermesApi {
         if (System.currentTimeMillis() - p.getLong("m_zaman", 0) < 60000L) return;
         android.content.SharedPreferences.Editor e = p.edit();
         try {
-            JSONObject mi = new JSONObject(get(HD + "/api/model/info", 4000));
+            JSONObject mi = new JSONObject(get(hd() + "/api/model/info", 4000));
             String tam = mi.optString("model", "-");
             e.putString("m_tam", tam);
             e.putString("m_sag", mi.optString("provider", "-"));

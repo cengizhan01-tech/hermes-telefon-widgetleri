@@ -1,0 +1,35 @@
+name: Sürüm yayınla
+
+# "v1.2.3" gibi bir etiket gönderilince Sürüm (Release) kendiliğinden oluşur.
+# Gerekenler (aynı etiket adıyla): dagitim/hermes-telefon-widgetleri-<etiket>.apk ve dagitim/surum-notlari-<etiket>.md
+# Güvenlik: APK'nın SHA-256 değeri sürüm notundakiyle birebir aynı olmalı, değilse yayın yapılmaz.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  surum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu al
+        uses: actions/checkout@v4
+
+      - name: APK'yı doğrula ve sürümü oluştur
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          SURUM="${GITHUB_REF_NAME}"
+          APK="dagitim/hermes-telefon-widgetleri-${SURUM}.apk"
+          NOTLAR="dagitim/surum-notlari-${SURUM}.md"
+          [ -f "$APK" ] || { echo "APK bulunamadı: $APK"; exit 1; }
+          [ -f "$NOTLAR" ] || { echo "Sürüm notu bulunamadı: $NOTLAR"; exit 1; }
+          GERCEK="$(sha256sum "$APK" | cut -d' ' -f1)"
+          grep -qi "$GERCEK" "$NOTLAR" || { echo "SHA-256 sürüm notundakiyle uyuşmuyor: $GERCEK"; exit 1; }
+          echo "SHA-256 doğrulandı: $GERCEK"
+          gh release create "$SURUM" "$APK" --title "${SURUM} – Kurulabilir APK" --notes-file "$NOTLAR" --verify-tag

@@ -10,6 +10,7 @@ local.properties
 # Derleme çıktıları ve araçlar
 build/
 *.apk
+!dagitim/*.apk
 *.aab
 *.dex
 *.class

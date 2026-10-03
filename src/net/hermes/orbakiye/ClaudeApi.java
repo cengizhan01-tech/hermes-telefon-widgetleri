@@ -42,7 +42,9 @@ public class ClaudeApi {
         return d == null ? null : new File(d, "claude-limit.json");
     }
 
-    static final String URL_JSON = "http://@SUNUCU_IP@:3000/images/claude-limit.json";
+    static String urlJson() {
+        return Sunucu.ip() + ":3000/images/claude-limit.json";
+    }
 
     /** Once sunucudaki (arindirilmis) JSON, olmazsa yerel dosya; ikisi de yoksa dosyaYok. */
     static Veri getir(Context c) {
@@ -51,8 +53,9 @@ public class ClaudeApi {
     }
 
     static String uzaktan() {
+        if (!Sunucu.var()) return null;
         try {
-            java.net.HttpURLConnection h = (java.net.HttpURLConnection) new java.net.URL(URL_JSON).openConnection();
+            java.net.HttpURLConnection h = (java.net.HttpURLConnection) new java.net.URL(urlJson()).openConnection();
             h.setConnectTimeout(4000);
             h.setReadTimeout(5000);
             if (h.getResponseCode() >= 400) return null;

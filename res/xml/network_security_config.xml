@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Sunucu adresi kullanıcıya özel olduğu için düz http (özel ağ, ör. Tailscale) tüm adreslere serbest; https doğrulaması aynen sürer. -->
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="false">@SUNUCU_IP@</domain>
-    </domain-config>
+    <base-config cleartextTrafficPermitted="true" />
 </network-security-config>

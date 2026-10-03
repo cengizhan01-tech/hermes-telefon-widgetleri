@@ -14,7 +14,9 @@ import java.util.Locale;
  * Telefon yalniz bu JSON'u okur; ChatGPT oturum jetonu telefona ASLA alinmaz.
  */
 public class CodexApi {
-    static final String URL_JSON = "http://@SUNUCU_IP@:3000/images/codex-kota.json";
+    static String urlJson() {
+        return Sunucu.ip() + ":3000/images/codex-kota.json";
+    }
     static final String PREFS = "or";
     static Context ctx;
 
@@ -55,8 +57,12 @@ public class CodexApi {
             v.guncellendi = simdi;
             return v;
         }
+        if (!Sunucu.var()) {
+            v.hata = "Sunucu adresi girilmemiş (uygulamayı aç)";
+            return v;
+        }
         try {
-            HttpURLConnection h = (HttpURLConnection) new URL(URL_JSON).openConnection();
+            HttpURLConnection h = (HttpURLConnection) new URL(urlJson()).openConnection();
             h.setConnectTimeout(4000);
             h.setReadTimeout(5000);
             int kod = h.getResponseCode();

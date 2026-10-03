@@ -123,9 +123,30 @@ public class MainActivity extends Activity {
                 widgetSabitle();
             }
         });
+        TextView sunBaslik = yazi("Sunucu adresi (Hermes sunucu, ChatGPT kotası, Claude limiti widget'ları için)", 14, "#9FB3C8");
+        final EditText sunAdres = new EditText(this);
+        sunAdres.setHint("100.x.y.z veya sunucu adı");
+        sunAdres.setHintTextColor(Color.parseColor("#6B7C8F"));
+        sunAdres.setTextColor(Color.WHITE);
+        sunAdres.setSingleLine(true);
+        sunAdres.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+        if (Sunucu.ham().length() > 0) sunAdres.setText(Sunucu.ham());
+        Button sunKaydet = new Button(this);
+        sunKaydet.setText("Sunucu adresini kaydet");
+        sunKaydet.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String a = sunAdres.getText().toString().trim();
+                Sunucu.kaydet(MainActivity.this, a);
+                sonuc.setText(Sunucu.var() ? "Sunucu adresi kaydedildi: " + Sunucu.ip() + "\nWidget'lar birkaç saniye içinde güncellenir." : "Sunucu adresi silindi.");
+                widgetYenile();
+                sendBroadcast(new Intent(MainActivity.this, HermesWidget.class).setAction(HermesWidget.ACTION_REFRESH));
+                sendBroadcast(new Intent(MainActivity.this, CodexWidget.class).setAction(CodexWidget.ACTION_REFRESH));
+                sendBroadcast(new Intent(MainActivity.this, ClaudeWidget.class).setAction(ClaudeWidget.ACTION_REFRESH));
+            }
+        });
         TextView besBaslik = yazi("Beszel girişi (SSD / ağ hızı için, salt okunur kullanıcı)", 14, "#9FB3C8");
         final EditText besMail = new EditText(this);
-        besMail.setHint("telefon@hermes.local");
+        besMail.setHint("Beszel e-postası");
         besMail.setHintTextColor(Color.parseColor("#6B7C8F"));
         besMail.setTextColor(Color.WHITE);
         besMail.setSingleLine(true);
@@ -191,6 +212,9 @@ public class MainActivity extends Activity {
         k.addView(yapistir);
         k.addView(kaydet);
         k.addView(sil);
+        k.addView(sunBaslik);
+        k.addView(sunAdres);
+        k.addView(sunKaydet);
         k.addView(besBaslik);
         k.addView(besMail);
         k.addView(besPass);

@@ -222,11 +222,13 @@ public class HermesActivity extends Activity {
 
     void ekle(Tema t, HermesApi.Veri v) {
         icerik.addView(baslik(t, "KISAYOLLAR"));
-        icerik.addView(dugme("Hermes Dashboard", HermesApi.HD));
-        icerik.addView(dugme("Homepage pano", HermesApi.HP));
-        icerik.addView(dugme("Uptime Kuma", "http://@SUNUCU_IP@:3001"));
-        icerik.addView(dugme("Beszel", "http://@SUNUCU_IP@:8090"));
-        icerik.addView(dugme("Paperless", "http://@SUNUCU_IP@:8000"));
+        if (Sunucu.var()) {
+            icerik.addView(dugme("Hermes Dashboard", HermesApi.hd()));
+            icerik.addView(dugme("Homepage pano", HermesApi.hp()));
+            icerik.addView(dugme("Uptime Kuma", HermesApi.ip() + ":3001"));
+            icerik.addView(dugme("Beszel", HermesApi.ip() + ":8090"));
+            icerik.addView(dugme("Paperless", HermesApi.ip() + ":8000"));
+        }
         String z = new SimpleDateFormat("HH:mm:ss", new Locale("tr")).format(new Date(v.zaman));
         durum = yazi("Güncellendi " + z + "  ·  15 sn'de bir yenilenir  ·  tema: " + t.ad, 12, "#A5B4FC", false);
         durum.setTextColor(t.guncel);
