@@ -32,7 +32,6 @@ public class HermesApi {
         { "Backrest", "9898", "Backrest" },
         { "changedetection.io", "5000", "Change" },
         { "Paperless-ngx", "8000", "Paperless" },
-        { "Actual Budget", "5007", "Actual" },
         { "Activepieces", "8080", "Pieces" },
         { "Stirling-PDF", "8081", "Stirling" },
         { "Homepage", "3000", "Homepage" }

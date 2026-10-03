@@ -88,6 +88,7 @@ KEYSTORE_PASS=<kendi-parolan> TOOLS=/c/android-build bash build-orbakiye.sh
 - `.github/workflows/surum.yml`: etiket (`v*`) gönderilince APK'nın SHA-256'sını sürüm notuyla doğrulayıp Sürümü kendiliğinden oluşturan iş akışı
 
 ## Sürümler
+- **v1.1.1**: Hermes Sunucu widget'ının servis listesinden kullanılmayan "Actual Budget" çıkarıldı (kapalı görünüyordu); servis sayısı 10 → 9.
 - **v1.1.0**: Sunucu adresi artık derlemede değil uygulamada girilir (APK herkes için kullanılabilir). Örnek e-posta ipucu nötrleştirildi. Claude widget'ının seçici adı "Claude Limiti" oldu.
 - v1.0: ilk sürüm (yalnız kaynak).
 
