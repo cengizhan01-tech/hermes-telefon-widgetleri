@@ -23,6 +23,7 @@ public class ClaudeApi {
         long kisaYenilenme, uzunYenilenme, guncellendi;
         boolean ekstraAcik;
         double ekstraHarcanan = -1, ekstraLimit = -1;
+        double kredi = -1;   // elle girilen kalan kullanim kredisi (claude.ai > Kullanim)
         String para = "EUR";
         long baglamKullanilan, baglamPencere;
         double baglamYuzde = -1, otomatikSikistirma = 97;
@@ -133,6 +134,8 @@ public class ClaudeApi {
                     v.ekstraHarcanan = Math.max(0, ep.getFloat("claude_ek_harcanan", 0f));
                 }
             }
+            float kr = c.getSharedPreferences("or", 0).getFloat("claude_kredi", -1f);
+            if (kr >= 0) v.kredi = kr;
             JSONObject b = j.optJSONObject("baglam");
             if (b != null) {
                 v.baglamKullanilan = b.optLong("kullanilan", 0);

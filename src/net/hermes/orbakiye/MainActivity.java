@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-    EditText anahtar, yonetim, ekLimit, ekHarcanan;
+    EditText anahtar, yonetim, ekLimit, ekHarcanan, ekKredi;
     TextView sonuc;
 
     @Override
@@ -231,6 +231,13 @@ public class MainActivity extends Activity {
         ekHarcanan.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         ekHarcanan.setSingleLine(true);
         k.addView(ekHarcanan);
+        ekKredi = new EditText(this);
+        ekKredi.setHint("Claude kalan kullanım kredisi (örn. 13.94)" + (cp.getFloat("claude_kredi", -1f) >= 0 ? "  [kayıtlı: " + cp.getFloat("claude_kredi", 0f) + "]" : ""));
+        ekKredi.setHintTextColor(Color.parseColor("#6B7C8F"));
+        ekKredi.setTextColor(Color.WHITE);
+        ekKredi.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ekKredi.setSingleLine(true);
+        k.addView(ekKredi);
         k.addView(yapistir);
         k.addView(kaydet);
         k.addView(sil);
@@ -298,12 +305,15 @@ public class MainActivity extends Activity {
             String eh = ekHarcanan.getText().toString().trim().replace(',', '.');
             if (el.length() > 0) ed.putFloat("claude_ek_limit", Float.parseFloat(el));
             if (eh.length() > 0) ed.putFloat("claude_ek_harcanan", Float.parseFloat(eh));
+            String kk = ekKredi.getText().toString().trim().replace(',', '.');
+            if (kk.length() > 0) ed.putFloat("claude_kredi", Float.parseFloat(kk));
             ed.apply();
         } catch (NumberFormatException e) {
             // geçersiz sayı yok sayılır
         }
         ekLimit.setText("");
         ekHarcanan.setText("");
+        ekKredi.setText("");
         anahtar.setText("");
         yenile();
     }

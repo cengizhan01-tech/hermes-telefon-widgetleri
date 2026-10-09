@@ -74,7 +74,9 @@ public class ClaudeWidget extends AppWidgetProvider {
             RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.claude_widget);
             v.setInt(R.id.root, "setBackgroundResource", t.bg);
             v.setTextViewText(R.id.l_title, t.mono ? "▌ CLAUDE // LİMİT.DURUMU" : "✦  CLAUDE KULLANIM LİMİTİ");
-            if (d != null && d.ekstraAcik) {
+            if (d != null && d.kredi >= 0) {
+                v.setTextViewText(R.id.l_title, "✦  CLAUDE LİMİT  ·  KREDİ " + ClaudeApi.para(d.kredi, d.para));
+            } else if (d != null && d.ekstraAcik) {
                 String ek = d.ekstraLimit > 0
                     ? "EK KALAN " + ClaudeApi.para(Math.max(0, d.ekstraLimit - Math.max(0, d.ekstraHarcanan)), d.para)
                     : "EK KULLANIM AÇIK";
