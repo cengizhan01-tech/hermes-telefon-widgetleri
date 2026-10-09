@@ -29,6 +29,8 @@ public class CodexApi {
         long guncellendi;                    // sunucu epoch sn
         long okunma;                         // telefon ms
         boolean ornek;
+        double kredi = -1;                   // istege bagli: kalan kredi bakiyesi
+        String krediPara = "USD";
     }
 
     static void ayarla(Context c) {
@@ -87,6 +89,8 @@ public class CodexApi {
                 v.uzunYuzde = u.optDouble("kullanilan", -1);
                 v.uzunYenilenme = u.optLong("yenilenme", 0);
             }
+            JSONObject kr = j.optJSONObject("kredi");
+            if (kr != null) { v.kredi = kr.optDouble("bakiye", -1); v.krediPara = kr.optString("para", "USD"); }
             v.guncellendi = j.optLong("guncellendi", 0);
             String hata = j.optString("hata", "");
             if (hata.length() > 0) v.hata = "sunucu: " + hata;

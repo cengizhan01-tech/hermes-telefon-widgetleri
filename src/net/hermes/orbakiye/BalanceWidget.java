@@ -123,8 +123,6 @@ public class BalanceWidget extends AppWidgetProvider {
                 v.setTextViewText(R.id.model, modelYazi(p));
                 String act = p.getString("act_goster", "");
                 boolean actVar = act.length() > 0;
-                v.setViewVisibility(R.id.sec_act, actVar ? View.VISIBLE : View.GONE);
-                v.setViewVisibility(R.id.act, actVar ? View.VISIBLE : View.GONE);
                 v.setTextViewText(R.id.act, act);
                 v.setTextViewText(R.id.anahtar, p.getString("anahtar_txt", ""));
                 v.setTextViewText(R.id.hesap, p.getString("hesap_txt", ""));
@@ -133,10 +131,11 @@ public class BalanceWidget extends AppWidgetProvider {
             }
             Intent yenile = new Intent(c, BalanceWidget.class).setAction(ACTION_REFRESH);
             v.setOnClickPendingIntent(R.id.root,
-                PendingIntent.getBroadcast(c, 0, yenile, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+                PendingIntent.getActivity(c, 25, new Intent(c, TapActivity.class).putExtra("tur", "or"), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
             Intent ayar = new Intent(c, MainActivity.class);
             v.setOnClickPendingIntent(R.id.settings,
                 PendingIntent.getActivity(c, 1, ayar, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+            DetayActivity.yakala = v;
             m.updateAppWidget(id, v);
         }
     }

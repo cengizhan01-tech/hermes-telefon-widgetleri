@@ -5,7 +5,7 @@ import android.graphics.Color;
 
 /** Widget temalari. Otomatik modda her DEGISIM_MS'de bir sonraki temaya gecer. */
 public class Tema {
-    static final long DEGISIM_MS = 120000L; // 2 dakikada bir tema degisir
+    static final long DEGISIM_MS = 120000L; // artik kullanilmiyor (tema saate gore)
 
     final String ad;
     final int bg, chip;
@@ -42,7 +42,11 @@ public class Tema {
         new Tema("Matrix", R.drawable.bg_matrix, R.drawable.chip_matrix, "> OPENROUTER_",
             "#00FF41", "#4ADE80", "#00FF41", "#15A340", "#00FF41", "#A3E635", "#FF3B30", true),
         new Tema("Buz", R.drawable.bg_ice, R.drawable.chip_ice, "❄  OPENROUTER",
-            "#075985", "#0C4A6E", "#0C4A6E", "#0369A1", "#047857", "#B45309", "#B91C1C", false)
+            "#075985", "#0C4A6E", "#0C4A6E", "#0369A1", "#047857", "#B45309", "#B91C1C", false),
+        new Tema("Grafit", R.drawable.bg_grafit, R.drawable.chip_grafit, "OPENROUTER",
+            "#7DD3FC", "#E5E7EB", "#FFFFFF", "#9CA3AF", "#4ADE80", "#FACC15", "#F87171", false),
+        new Tema("Obsidyen", R.drawable.bg_obsidyen, R.drawable.chip_obsidyen, "OPENROUTER",
+            "#FBBF24", "#E2E8F0", "#FFFFFF", "#94A3B8", "#34D399", "#FBBF24", "#F87171", false)
     };
 
     /** -1 = otomatik, 0..N-1 = sabit tema */
@@ -64,12 +68,13 @@ public class Tema {
     static Tema mevcut(Context c) {
         int m = mod(c);
         if (m >= 0 && m < TEMALAR.length) return TEMALAR[m];
-        int i = (int) ((System.currentTimeMillis() / DEGISIM_MS) % TEMALAR.length);
-        return TEMALAR[i];
+        // iki koyu tema, saatte bir sırayla: çift saat Grafit, tek saat Obsidyen
+        int h = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        return TEMALAR[h % 2 == 0 ? 6 : 7];
     }
 
     static String modAdi(Context c) {
         int m = mod(c);
-        return m < 0 ? "Otomatik (2 dk'da bir değişir)" : TEMALAR[m].ad;
+        return m < 0 ? "Otomatik (saatte bir Grafit / Obsidyen)" : TEMALAR[m].ad;
     }
 }

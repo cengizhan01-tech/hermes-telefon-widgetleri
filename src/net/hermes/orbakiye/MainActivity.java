@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-    EditText anahtar;
+    EditText anahtar, yonetim, ekLimit, ekHarcanan;
     TextView sonuc;
 
     @Override
@@ -209,6 +209,28 @@ public class MainActivity extends Activity {
         k.addView(widgetEkle);
         k.addView(ipucu);
         k.addView(anahtar);
+        yonetim = new EditText(this);
+        yonetim.setHint(Api.getYonetim(this).length() >= 10 ? "Yönetim anahtarı kayıtlı (değiştirmek için yapıştır)" : "Yönetim anahtarı (isteğe bağlı: model dökümü)");
+        yonetim.setHintTextColor(Color.parseColor("#6B7C8F"));
+        yonetim.setTextColor(Color.WHITE);
+        yonetim.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        yonetim.setSingleLine(true);
+        k.addView(yonetim);
+        android.content.SharedPreferences cp = getSharedPreferences("or", 0);
+        ekLimit = new EditText(this);
+        ekLimit.setHint("Claude ek kullanım aylık limiti (örn. 30)" + (cp.getFloat("claude_ek_limit", -1f) > 0 ? "  [kayıtlı: " + cp.getFloat("claude_ek_limit", 0f) + "]" : ""));
+        ekLimit.setHintTextColor(Color.parseColor("#6B7C8F"));
+        ekLimit.setTextColor(Color.WHITE);
+        ekLimit.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ekLimit.setSingleLine(true);
+        k.addView(ekLimit);
+        ekHarcanan = new EditText(this);
+        ekHarcanan.setHint("Claude ek kullanım bu ay harcanan (örn. 0)" + (cp.contains("claude_ek_harcanan") ? "  [kayıtlı: " + cp.getFloat("claude_ek_harcanan", 0f) + "]" : ""));
+        ekHarcanan.setHintTextColor(Color.parseColor("#6B7C8F"));
+        ekHarcanan.setTextColor(Color.WHITE);
+        ekHarcanan.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ekHarcanan.setSingleLine(true);
+        k.addView(ekHarcanan);
         k.addView(yapistir);
         k.addView(kaydet);
         k.addView(sil);
@@ -267,6 +289,21 @@ public class MainActivity extends Activity {
     void kaydetYenile() {
         String a = anahtar.getText().toString().trim();
         if (a.length() >= 10) Api.setAnahtar(this, a);
+        String y = yonetim.getText().toString().trim();
+        if (y.length() >= 10) Api.setYonetim(this, y);
+        yonetim.setText("");
+        try {
+            android.content.SharedPreferences.Editor ed = getSharedPreferences("or", 0).edit();
+            String el = ekLimit.getText().toString().trim().replace(',', '.');
+            String eh = ekHarcanan.getText().toString().trim().replace(',', '.');
+            if (el.length() > 0) ed.putFloat("claude_ek_limit", Float.parseFloat(el));
+            if (eh.length() > 0) ed.putFloat("claude_ek_harcanan", Float.parseFloat(eh));
+            ed.apply();
+        } catch (NumberFormatException e) {
+            // geçersiz sayı yok sayılır
+        }
+        ekLimit.setText("");
+        ekHarcanan.setText("");
         anahtar.setText("");
         yenile();
     }

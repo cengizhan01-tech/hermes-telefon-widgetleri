@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="330dp"
-    android:minHeight="600dp"
+    android:minHeight="270dp"
+    android:minResizeHeight="135dp"
     android:targetCellWidth="5"
-    android:targetCellHeight="9"
+    android:targetCellHeight="4"
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/claude_widget"
     android:resizeMode="horizontal|vertical"

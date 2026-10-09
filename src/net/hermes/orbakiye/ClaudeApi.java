@@ -124,6 +124,15 @@ public class ClaudeApi {
                 v.ekstraLimit = e.optDouble("limit", -1);
                 v.para = e.optString("para", "EUR");
             }
+            if (v.ekstraLimit <= 0) {
+                android.content.SharedPreferences ep = c.getSharedPreferences("or", 0);
+                double el = ep.getFloat("claude_ek_limit", -1f);
+                if (el > 0) {
+                    v.ekstraAcik = true;
+                    v.ekstraLimit = el;
+                    v.ekstraHarcanan = Math.max(0, ep.getFloat("claude_ek_harcanan", 0f));
+                }
+            }
             JSONObject b = j.optJSONObject("baglam");
             if (b != null) {
                 v.baglamKullanilan = b.optLong("kullanilan", 0);

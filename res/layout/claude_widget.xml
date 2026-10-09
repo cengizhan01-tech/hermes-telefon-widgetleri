@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:text="CLAUDE LİMİT"
             android:textColor="#C4B5FD"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:letterSpacing="0.1" />
         <TextView
@@ -30,54 +30,54 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <TextView android:id="@+id/l_plan" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+    <TextView android:id="@+id/l_plan" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView android:id="@+id/l_sec1" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" android:text="5 SAATLİK LİMİT" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+        android:layout_marginTop="8dp" android:text="5 SAATLİK LİMİT" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
     <TextView android:id="@+id/l_ana" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="…" android:textColor="#34D399" android:textSize="44sp" android:textStyle="bold" />
+        android:text="…" android:textColor="#34D399" android:textSize="32sp" android:textStyle="bold" />
     <TextView android:id="@+id/l_ana_etiket" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
     <ProgressBar android:id="@+id/l_bar1" style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent" android:layout_height="10dp" android:layout_marginTop="8dp"
         android:max="1000" android:progress="500" android:progressDrawable="@drawable/bar_bg" />
     <TextView android:id="@+id/l_tempo1" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView android:id="@+id/l_sec2" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="14dp" android:text="HAFTALIK LİMİT (TÜM MODELLER)" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+        android:layout_marginTop="14dp" android:text="HAFTALIK LİMİT (TÜM MODELLER)" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
     <TextView android:id="@+id/l_uzun_buyuk" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#34D399" android:textSize="34sp" android:textStyle="bold" />
+        android:text="" android:textColor="#34D399" android:textSize="26sp" android:textStyle="bold" />
     <TextView android:id="@+id/l_uzun_yazi" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
     <ProgressBar android:id="@+id/l_bar2" style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent" android:layout_height="10dp" android:layout_marginTop="8dp"
         android:max="1000" android:progress="500" android:progressDrawable="@drawable/bar_bg" />
     <TextView android:id="@+id/l_tempo2" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView android:id="@+id/l_sec3" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="14dp" android:text="EK KULLANIM (ÜCRETLİ TAŞMA)" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+        android:layout_marginTop="14dp" android:text="EK KULLANIM (ÜCRETLİ TAŞMA)" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
     <TextView android:id="@+id/l_ekstra" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="13sp" />
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
     <ProgressBar android:id="@+id/l_bar3" style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="6dp"
         android:max="1000" android:progress="8" android:progressDrawable="@drawable/bar_bg" />
 
-    <TextView android:id="@+id/l_sec4" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="14dp" android:text="BU OTURUMUN BAĞLAM PENCERESİ" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
-    <TextView android:id="@+id/l_baglam" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
-    <ProgressBar android:id="@+id/l_bar4" style="?android:attr/progressBarStyleHorizontal"
+    <TextView android:id="@+id/l_sec4" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" android:text="BU OTURUMUN BAĞLAM PENCERESİ" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/l_baglam" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
+    <ProgressBar android:id="@+id/l_bar4" android:visibility="gone" style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="6dp"
         android:max="1000" android:progress="500" android:progressDrawable="@drawable/bar_bg" />
 
-    <TextView android:id="@+id/l_sec5" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="14dp" android:text="NASIL OKUNUR" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
-    <TextView android:id="@+id/l_not" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="11sp" />
+    <TextView android:id="@+id/l_sec5" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" android:text="NASIL OKUNUR" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/l_not" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView android:id="@+id/l_alt" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" android:text="" android:textColor="#A5B4FC" android:textSize="10sp" />
+        android:layout_marginTop="10dp" android:text="" android:textColor="#A5B4FC" android:textSize="14sp" />
 </LinearLayout>

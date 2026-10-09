@@ -15,14 +15,14 @@ import android.os.PowerManager;
 
 /**
  * Widget'lari yenileyen ve uyarilari kontrol eden on plan servisi.
- *  - Ekran acik        : Hermes sunucu widget'i 10 sn'de bir; OpenRouter/ChatGPT/Claude limit widget'lari 5 dk'da bir;
+ *  - Ekran acik        : Hermes sunucu widget'i 10 sn'de bir; OpenRouter/ChatGPT/Claude limit widget'lari 1 dk'da bir;
  *                        uyari degerlendirmesi 1 dk'da bir (10 sn'lik ani dalgalanmalar yanlis alarm uretmesin)
  *  - Ekran kapali      : her sey 5 dk'da bir (uyarilar kacmasin)
  *  - Sessiz saat 22:00-03:45 : hic sorgu/bildirim yok
  */
 public class RefreshService extends Service {
     static final long HERMES_ARALIK = 10000L;       // 10 sn
-    static final long LIMIT_ARALIK = 300000L;       // 5 dk
+    static final long LIMIT_ARALIK = 60000L;        // 1 dk (ekran açıkken)
     static final long UYARI_ARALIK = 60000L;        // 1 dk
     static final long EKRAN_KAPALI_ARALIK = 300000L;
     static final String KANAL = "or_yenileme";
@@ -64,7 +64,7 @@ public class RefreshService extends Service {
                                     sonHermes = simdi;
                                     hv = hermes(c, m);
                                 }
-                                if (simdi - sonLimit >= LIMIT_ARALIK - 500) {
+                                if (simdi - sonLimit >= (ekranAcik ? LIMIT_ARALIK : EKRAN_KAPALI_ARALIK) - 500) {
                                     sonLimit = simdi;
                                     limitler(c, m);
                                 }
@@ -130,7 +130,7 @@ public class RefreshService extends Service {
             nm.createNotificationChannel(ch);
         }
         Notification.Builder b = Build.VERSION.SDK_INT >= 26 ? new Notification.Builder(this, KANAL) : new Notification.Builder(this);
-        b.setContentTitle("Widget'lar canlı").setContentText("Hermes 10 sn · limitler 5 dk · uyarılar açık")
+        b.setContentTitle("Widget'lar canlı").setContentText("Hermes 10 sn · limitler 1 dk · uyarılar açık")
             .setSmallIcon(android.R.drawable.stat_notify_sync).setOngoing(true);
         Notification n = b.build();
         if (Build.VERSION.SDK_INT >= 34) startForeground(1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);

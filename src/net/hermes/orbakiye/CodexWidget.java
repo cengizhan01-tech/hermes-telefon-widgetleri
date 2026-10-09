@@ -124,14 +124,16 @@ public class CodexWidget extends AppWidgetProvider {
                     + "• Kota bitince Hermes ücretli OpenRouter yedeğine düşebilir (bakiye widget'ına bak).\n"
                     + "• Uyarı: 5 saatlik %90, haftalık %85'te telefona bildirim gelir.");
                 String taze = d.ornek ? "ÖRNEK VERİ (gerçek değil)" : (CodexApi.taze(d) ? "veri " + CodexApi.once(d.guncellendi) : "⚠ veri eski (" + CodexApi.once(d.guncellendi) + ")");
-                v.setTextViewText(R.id.c_alt, (yukleniyor ? "↻ yenileniyor…  " : "") + taze + "  ·  tema: " + t.ad + "  ·  dokun: yenile");
+                String kr = d.kredi >= 0 ? "Kalan kredi: " + String.format(java.util.Locale.US, "%.2f", d.kredi) + "  ·  " : "";
+                if (d.kredi >= 0) v.setTextViewText(R.id.c_title, "✦  CHATGPT KOTA  ·  KREDİ " + String.format(java.util.Locale.US, "%.2f", d.kredi));
+                v.setTextViewText(R.id.c_alt, kr + (yukleniyor ? "↻ yenileniyor…  " : "") + taze + "  ·  tema: " + t.ad + "  ·  dokun: yenile");
             }
             v.setOnClickPendingIntent(R.id.root,
-                PendingIntent.getBroadcast(c, 30, new Intent(c, CodexWidget.class).setAction(ACTION_REFRESH),
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+                PendingIntent.getActivity(c, 35, new Intent(c, TapActivity.class).putExtra("tur", "codex"), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
             v.setOnClickPendingIntent(R.id.c_refresh,
                 PendingIntent.getBroadcast(c, 31, new Intent(c, CodexWidget.class).setAction(ACTION_REFRESH),
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+            DetayActivity.yakala = v;
             m.updateAppWidget(id, v);
         }
     }

@@ -169,7 +169,7 @@ public class HermesWidget extends AppWidgetProvider {
             v.setTextViewText(R.id.h_updated, (yukleniyor ? "↻ yenileniyor…  " : "") + zaman + "  ·  tema: " + t.ad + "  ·  ↻ yenile  ·  dokun: tam sayfa panel");
 
             v.setOnClickPendingIntent(R.id.root,
-                PendingIntent.getActivity(c, 10, new Intent(c, HermesActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+                PendingIntent.getActivity(c, 15, new Intent(c, TapActivity.class).putExtra("tur", "hermes"), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
             v.setOnClickPendingIntent(R.id.h_refresh,
                 PendingIntent.getBroadcast(c, 11, new Intent(c, HermesWidget.class).setAction(ACTION_REFRESH),
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));

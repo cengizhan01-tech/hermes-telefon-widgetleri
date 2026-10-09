@@ -43,6 +43,14 @@ public class Api {
         c.getSharedPreferences(PREFS, 0).edit().putString("key", k.trim()).apply();
     }
 
+    static String getYonetim(Context c) {
+        return c.getSharedPreferences(PREFS, 0).getString("ymk", "");
+    }
+
+    static void setYonetim(Context c, String k) {
+        c.getSharedPreferences(PREFS, 0).edit().putString("ymk", k.trim()).putLong("act_zaman", 0).apply();
+    }
+
     static String http(String url, String key) throws Exception {
         HttpURLConnection h = (HttpURLConnection) new URL(url).openConnection();
         h.setConnectTimeout(10000);
@@ -231,13 +239,17 @@ public class Api {
     // ---------------------------------------------------------------- aktivite (yönetim anahtarı gerekir)
     static String aktiviteOzet(Context c, String key) {
         SharedPreferences p = c.getSharedPreferences(PREFS, 0);
+        String ymk = getYonetim(c);
+        if (ymk.length() < 10) return "Model dökümü için OpenRouter 'Management key' gerekir.\nUygulamayı aç (⚙), 'Yönetim anahtarı' alanına yapıştır.";
         long son = p.getLong("act_zaman", 0);
-        if (System.currentTimeMillis() - son < 600000L) return p.getString("act_txt", "");
+        if (System.currentTimeMillis() - son < 600000L && p.getString("act_txt", "").length() > 0) return p.getString("act_txt", "");
         String sonuc;
         try {
-            JSONObject o = new JSONObject(http("https://openrouter.ai/api/v1/activity", key));
+            JSONObject o = new JSONObject(http("https://openrouter.ai/api/v1/activity", ymk));
             JSONArray data = o.optJSONArray("data");
-            Map<String, double[]> m = new HashMap<String, double[]>();
+            Map<String, double[]> m = new HashMap<String, double[]>();   // 0 usage, 1 istek, 2 girdi tok, 3 çıktı tok
+            Map<String, java.util.Set<String>> gunler = new java.util.TreeMap<String, java.util.Set<String>>();
+            double toplam = 0;
             if (data != null) {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject x = data.optJSONObject(i);
@@ -246,9 +258,19 @@ public class Api {
                     int ix = ad.lastIndexOf('/');
                     if (ix >= 0) ad = ad.substring(ix + 1);
                     double[] a = m.get(ad);
-                    if (a == null) { a = new double[2]; m.put(ad, a); }
-                    a[0] += x.optDouble("usage", 0);
+                    if (a == null) { a = new double[4]; m.put(ad, a); }
+                    double u = x.optDouble("usage", 0);
+                    a[0] += u; toplam += u;
                     a[1] += x.optDouble("requests", 0);
+                    a[2] += x.optDouble("prompt_tokens", 0);
+                    a[3] += x.optDouble("completion_tokens", 0);
+                    String gun = x.optString("date", "");
+                    if (gun.length() >= 10) {
+                        gun = gun.substring(0, 10);
+                        java.util.Set<String> k = gunler.get(gun);
+                        if (k == null) { k = new java.util.LinkedHashSet<String>(); gunler.put(gun, k); }
+                        k.add(ad);
+                    }
                 }
             }
             List<Map.Entry<String, double[]>> liste = new ArrayList<Map.Entry<String, double[]>>(m.entrySet());
@@ -258,17 +280,35 @@ public class Api {
                 }
             });
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < Math.min(4, liste.size()); i++) {
-                if (i > 0) sb.append("\n");
-                sb.append("• ").append(liste.get(i).getKey()).append("  ").append(para(liste.get(i).getValue()[0]))
-                  .append("  (").append((long) liste.get(i).getValue()[1]).append(" istek)");
+            sb.append("Son 30 gün toplam: ").append(para(toplam)).append("  ·  ").append(liste.size()).append(" model\n");
+            for (int i = 0; i < Math.min(10, liste.size()); i++) {
+                double[] a = liste.get(i).getValue();
+                sb.append("• ").append(liste.get(i).getKey()).append("  ").append(para(a[0]));
+                if (toplam > 0) sb.append("  (%").append(Math.round(a[0] / toplam * 100)).append(")");
+                sb.append("\n   ").append((long) a[1]).append(" istek · ").append(tok(a[2])).append(" girdi · ").append(tok(a[3])).append(" çıktı\n");
             }
-            sonuc = sb.toString();
+            if (!gunler.isEmpty()) {
+                List<String> gl = new ArrayList<String>(gunler.keySet());
+                sb.append("Son kullanılan:\n");
+                for (int i = gl.size() - 1; i >= Math.max(0, gl.size() - 3); i--) {
+                    sb.append("• ").append(gl.get(i)).append(": ");
+                    boolean ilk = true;
+                    for (String mm : gunler.get(gl.get(i))) { if (!ilk) sb.append(", "); sb.append(mm); ilk = false; }
+                    sb.append("\n");
+                }
+            }
+            sonuc = sb.toString().trim();
         } catch (Exception e) {
-            sonuc = "";   // normal anahtar: etkinlik dökümü yok
+            sonuc = "Model dökümü alınamadı (" + e.getMessage() + "). Yönetim anahtarını kontrol et.";
         }
         p.edit().putString("act_txt", sonuc).putLong("act_zaman", System.currentTimeMillis()).apply();
         return sonuc;
+    }
+
+    static String tok(double n) {
+        if (n >= 1e6) return String.format(java.util.Locale.US, "%.1fM", n / 1e6);
+        if (n >= 1e3) return String.format(java.util.Locale.US, "%.0fK", n / 1e3);
+        return String.valueOf((long) n);
     }
 
     // ---------------------------------------------------------------- önbelleğe yaz
@@ -325,7 +365,6 @@ public class Api {
         }
         if (s.limitSifirlama.length() > 0) an.append("Limit sıfırlanma: ").append(s.limitSifirlama).append("\n");
         an.append("Tür: ").append(s.ucretsiz ? "ücretsiz katman" : "ücretli").append(s.yonetimAnahtari ? " · yönetim anahtarı" : " · normal anahtar");
-        if (s.hizLimit.length() > 0) an.append("\nİstek sınırı: ").append(s.hizLimit);
         if (s.bitis.length() > 0) an.append("\nAnahtar bitişi: ").append(s.bitis);
         e.putString("anahtar_txt", an.toString());
 

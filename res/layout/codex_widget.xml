@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:text="CHATGPT KOTA"
             android:textColor="#C4B5FD"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:letterSpacing="0.1" />
         <TextView
@@ -31,14 +31,14 @@
     </LinearLayout>
 
     <TextView android:id="@+id/c_sec1" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" android:text="5 SAATLİK PENCERE" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+        android:layout_marginTop="6dp" android:text="5 SAATLİK PENCERE" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
     <TextView
         android:id="@+id/c_ana"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="…"
         android:textColor="#34D399"
-        android:textSize="44sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/c_ana_etiket"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#E0E7FF"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
     <ProgressBar
         android:id="@+id/c_bar1"
         style="?android:attr/progressBarStyleHorizontal"
@@ -57,17 +57,17 @@
         android:progress="500"
         android:progressDrawable="@drawable/bar_bg" />
     <TextView android:id="@+id/c_tempo1" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView android:id="@+id/c_sec2" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="HAFTALIK PENCERE" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
+        android:layout_marginTop="16dp" android:text="HAFTALIK PENCERE" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
     <TextView
         android:id="@+id/c_uzun_buyuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#34D399"
-        android:textSize="34sp"
+        android:textSize="26sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/c_uzun_yazi"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="#E0E7FF"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
     <ProgressBar
         android:id="@+id/c_bar2"
         style="?android:attr/progressBarStyleHorizontal"
@@ -86,12 +86,12 @@
         android:progress="500"
         android:progressDrawable="@drawable/bar_bg" />
     <TextView android:id="@+id/c_tempo2" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+        android:layout_marginTop="6dp" android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
-    <TextView android:id="@+id/c_sec3" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="NASIL OKUNUR" android:textColor="#C4B5FD" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12" />
-    <TextView android:id="@+id/c_not" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="" android:textColor="#E0E7FF" android:textSize="12sp" />
+    <TextView android:id="@+id/c_sec3" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:text="NASIL OKUNUR" android:textColor="#C4B5FD" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.12" />
+    <TextView android:id="@+id/c_not" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="" android:textColor="#E0E7FF" android:textSize="14sp" />
 
     <TextView
         android:id="@+id/c_alt"
@@ -100,5 +100,5 @@
         android:layout_marginTop="14dp"
         android:text=""
         android:textColor="#A5B4FC"
-        android:textSize="10sp" />
+        android:textSize="14sp" />
 </LinearLayout>

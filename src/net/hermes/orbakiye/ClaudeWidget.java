@@ -74,6 +74,12 @@ public class ClaudeWidget extends AppWidgetProvider {
             RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.claude_widget);
             v.setInt(R.id.root, "setBackgroundResource", t.bg);
             v.setTextViewText(R.id.l_title, t.mono ? "▌ CLAUDE // LİMİT.DURUMU" : "✦  CLAUDE KULLANIM LİMİTİ");
+            if (d != null && d.ekstraAcik) {
+                String ek = d.ekstraLimit > 0
+                    ? "EK KALAN " + ClaudeApi.para(Math.max(0, d.ekstraLimit - Math.max(0, d.ekstraHarcanan)), d.para)
+                    : "EK KULLANIM AÇIK";
+                v.setTextViewText(R.id.l_title, "✦  CLAUDE LİMİT  ·  " + ek);
+            }
             v.setTextColor(R.id.l_title, t.baslik);
             v.setTextColor(R.id.l_refresh, t.ayar);
             for (int x : new int[] { R.id.l_sec1, R.id.l_sec2, R.id.l_sec3, R.id.l_sec4, R.id.l_sec5 }) v.setTextColor(x, t.baslik);
@@ -174,11 +180,11 @@ public class ClaudeWidget extends AppWidgetProvider {
                 v.setTextColor(R.id.l_alt, eski ? t.orta : t.guncel);
             }
             v.setOnClickPendingIntent(R.id.root,
-                PendingIntent.getBroadcast(c, 40, new Intent(c, ClaudeWidget.class).setAction(ACTION_REFRESH),
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+                PendingIntent.getActivity(c, 45, new Intent(c, TapActivity.class).putExtra("tur", "claude"), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
             v.setOnClickPendingIntent(R.id.l_refresh,
                 PendingIntent.getBroadcast(c, 41, new Intent(c, ClaudeWidget.class).setAction(ACTION_REFRESH),
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+            DetayActivity.yakala = v;
             m.updateAppWidget(id, v);
         }
     }
