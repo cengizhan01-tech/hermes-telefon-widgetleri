@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-    EditText anahtar, yonetim, ekLimit, ekHarcanan, ekKredi;
+    EditText anahtar, yonetim;
     TextView sonuc;
 
     @Override
@@ -216,28 +216,8 @@ public class MainActivity extends Activity {
         yonetim.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         yonetim.setSingleLine(true);
         k.addView(yonetim);
-        android.content.SharedPreferences cp = getSharedPreferences("or", 0);
-        ekLimit = new EditText(this);
-        ekLimit.setHint("Claude ek kullanım aylık limiti (örn. 30)" + (cp.getFloat("claude_ek_limit", -1f) > 0 ? "  [kayıtlı: " + cp.getFloat("claude_ek_limit", 0f) + "]" : ""));
-        ekLimit.setHintTextColor(Color.parseColor("#6B7C8F"));
-        ekLimit.setTextColor(Color.WHITE);
-        ekLimit.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        ekLimit.setSingleLine(true);
-        k.addView(ekLimit);
-        ekHarcanan = new EditText(this);
-        ekHarcanan.setHint("Claude ek kullanım bu ay harcanan (örn. 0)" + (cp.contains("claude_ek_harcanan") ? "  [kayıtlı: " + cp.getFloat("claude_ek_harcanan", 0f) + "]" : ""));
-        ekHarcanan.setHintTextColor(Color.parseColor("#6B7C8F"));
-        ekHarcanan.setTextColor(Color.WHITE);
-        ekHarcanan.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        ekHarcanan.setSingleLine(true);
-        k.addView(ekHarcanan);
-        ekKredi = new EditText(this);
-        ekKredi.setHint("Claude kalan kullanım kredisi (örn. 13.94)" + (cp.getFloat("claude_kredi", -1f) >= 0 ? "  [kayıtlı: " + cp.getFloat("claude_kredi", 0f) + "]" : ""));
-        ekKredi.setHintTextColor(Color.parseColor("#6B7C8F"));
-        ekKredi.setTextColor(Color.WHITE);
-        ekKredi.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        ekKredi.setSingleLine(true);
-        k.addView(ekKredi);
+        // eski elle girilen Claude kredi değerlerini sil
+        getSharedPreferences("or", 0).edit().remove("claude_kredi").remove("claude_ek_limit").remove("claude_ek_harcanan").apply();
         k.addView(yapistir);
         k.addView(kaydet);
         k.addView(sil);
@@ -299,21 +279,6 @@ public class MainActivity extends Activity {
         String y = yonetim.getText().toString().trim();
         if (y.length() >= 10) Api.setYonetim(this, y);
         yonetim.setText("");
-        try {
-            android.content.SharedPreferences.Editor ed = getSharedPreferences("or", 0).edit();
-            String el = ekLimit.getText().toString().trim().replace(',', '.');
-            String eh = ekHarcanan.getText().toString().trim().replace(',', '.');
-            if (el.length() > 0) ed.putFloat("claude_ek_limit", Float.parseFloat(el));
-            if (eh.length() > 0) ed.putFloat("claude_ek_harcanan", Float.parseFloat(eh));
-            String kk = ekKredi.getText().toString().trim().replace(',', '.');
-            if (kk.length() > 0) ed.putFloat("claude_kredi", Float.parseFloat(kk));
-            ed.apply();
-        } catch (NumberFormatException e) {
-            // geçersiz sayı yok sayılır
-        }
-        ekLimit.setText("");
-        ekHarcanan.setText("");
-        ekKredi.setText("");
         anahtar.setText("");
         yenile();
     }

@@ -23,7 +23,6 @@ public class ClaudeApi {
         long kisaYenilenme, uzunYenilenme, guncellendi;
         boolean ekstraAcik;
         double ekstraHarcanan = -1, ekstraLimit = -1;
-        double kredi = -1;   // elle girilen kalan kullanim kredisi (claude.ai > Kullanim)
         String para = "EUR";
         long baglamKullanilan, baglamPencere;
         double baglamYuzde = -1, otomatikSikistirma = 97;
@@ -54,9 +53,13 @@ public class ClaudeApi {
     }
 
     static String uzaktan() {
+        return uzaktan("claude-limit.json");
+    }
+
+    static String uzaktan(String ad) {
         if (!Sunucu.var()) return null;
         try {
-            java.net.HttpURLConnection h = (java.net.HttpURLConnection) new java.net.URL(urlJson()).openConnection();
+            java.net.HttpURLConnection h = (java.net.HttpURLConnection) new java.net.URL(Sunucu.ip() + ":3000/images/" + ad).openConnection();
             h.setConnectTimeout(4000);
             h.setReadTimeout(5000);
             if (h.getResponseCode() >= 400) return null;
@@ -125,17 +128,6 @@ public class ClaudeApi {
                 v.ekstraLimit = e.optDouble("limit", -1);
                 v.para = e.optString("para", "EUR");
             }
-            if (v.ekstraLimit <= 0) {
-                android.content.SharedPreferences ep = c.getSharedPreferences("or", 0);
-                double el = ep.getFloat("claude_ek_limit", -1f);
-                if (el > 0) {
-                    v.ekstraAcik = true;
-                    v.ekstraLimit = el;
-                    v.ekstraHarcanan = Math.max(0, ep.getFloat("claude_ek_harcanan", 0f));
-                }
-            }
-            float kr = c.getSharedPreferences("or", 0).getFloat("claude_kredi", -1f);
-            if (kr >= 0) v.kredi = kr;
             JSONObject b = j.optJSONObject("baglam");
             if (b != null) {
                 v.baglamKullanilan = b.optLong("kullanilan", 0);

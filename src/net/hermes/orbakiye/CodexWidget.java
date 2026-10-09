@@ -125,7 +125,13 @@ public class CodexWidget extends AppWidgetProvider {
                     + "• Uyarı: 5 saatlik %90, haftalık %85'te telefona bildirim gelir.");
                 String taze = d.ornek ? "ÖRNEK VERİ (gerçek değil)" : (CodexApi.taze(d) ? "veri " + CodexApi.once(d.guncellendi) : "⚠ veri eski (" + CodexApi.once(d.guncellendi) + ")");
                 String kr = d.kredi >= 0 ? "Kalan kredi: " + String.format(java.util.Locale.US, "%.2f", d.kredi) + "  ·  " : "";
-                if (d.kredi >= 0) v.setTextViewText(R.id.c_title, "✦  CHATGPT KOTA  ·  KREDİ " + String.format(java.util.Locale.US, "%.2f", d.kredi));
+                if (d.kredi >= 0) {
+                    double mk = Math.max(d.kisaYuzde, d.uzunYuzde);
+                    String kn = String.format(java.util.Locale.US, "%.2f", d.kredi);
+                    v.setTextViewText(R.id.c_title, mk >= 100 ? "✦  CHATGPT  ·  DOLDU: KREDİ HARCANIYOR " + kn
+                        : mk >= 85 ? "✦  CHATGPT  ·  AZALDI: KREDİ HARCANABİLİR " + kn
+                        : "✦  CHATGPT KOTA  ·  KREDİ " + kn);
+                }
                 v.setTextViewText(R.id.c_alt, kr + (yukleniyor ? "↻ yenileniyor…  " : "") + taze + "  ·  tema: " + t.ad + "  ·  dokun: yenile");
             }
             v.setOnClickPendingIntent(R.id.root,
