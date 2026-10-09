@@ -95,6 +95,7 @@ public class RefreshService extends Service {
         if (hv.ulasildi) HermesWidget.son = hv;
         int[] hids = m.getAppWidgetIds(new ComponentName(c, HermesWidget.class));
         if (hids.length > 0) HermesWidget.gor(c, m, hids, hv.ulasildi ? hv : (HermesWidget.son != null ? HermesWidget.son : hv), false);
+        DurumWidget.guncelle(c, m);
         return hv;
     }
 
@@ -120,6 +121,7 @@ public class RefreshService extends Service {
         int[] kids = m.getAppWidgetIds(new ComponentName(c, ClaudeWidget.class));
         if (kids.length > 0) ClaudeWidget.gor(c, m, kids, kv.var ? kv : (ClaudeWidget.son != null ? ClaudeWidget.son : kv));
         Uyari.claudeKontrol(c, kv);
+        DurumWidget.guncelle(c, m);
     }
 
     void bildirimle() {
