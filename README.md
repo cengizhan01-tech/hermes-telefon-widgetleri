@@ -4,7 +4,7 @@ OpenRouter bakiyenizi, Hermes sunucunuzun durumunu ve ChatGPT/Codex ile Claude l
 
 ## Görünüm
 
-Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı. Kişisel bakiye ve profil bilgileri gizlendi. Görünen kullanım ve sistem değerleri, görüntünün alındığı ana aittir.
+Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı ve gizlilik için yapay zekâ ile düzenlendi. Kişisel bakiye ve profil bilgileri gizlendi. Görünen kullanım ve sistem değerleri, görüntünün alındığı ana aittir; görseller teknik kayıt değildir.
 
 <p>
   <a href="docs/images/kota-widgetleri-gizlenmis.png"><img src="docs/images/kota-widgetleri-gizlenmis.png" alt="ChatGPT Kota ve Claude Limiti widget'larının gizlilik için düzenlenmiş görünümü" width="360"></a>
