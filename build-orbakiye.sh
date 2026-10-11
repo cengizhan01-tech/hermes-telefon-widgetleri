@@ -30,7 +30,7 @@ cd "$W"
 "$BT/aapt2.exe" compile --dir s/res -o res.zip
 "$BT/aapt2.exe" link -o app.unsigned.apk -I "$AJ" --manifest s/AndroidManifest.xml \
   --java gen --min-sdk-version 24 --target-sdk-version 34 --version-code "${VERSION_CODE:-18}" --version-name "${VERSION_NAME:-1.1.16}" res.zip
-javac --release 8 -encoding UTF-8 -classpath "$AJ" -d classes $(find s/src gen -name '*.java') 2>&1 | grep -v '^Note:' || true
+javac --release 8 -encoding UTF-8 -classpath "$AJ" -d classes $(find s/src gen -name '*.java')
 java -cp "$BT/lib/d8.jar" com.android.tools.r8.D8 --lib "$AJ" --min-api 24 --output dex $(find classes -name '*.class')
 "$PY" - <<'PY'
 import zipfile
