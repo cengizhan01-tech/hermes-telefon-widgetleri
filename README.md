@@ -2,6 +2,15 @@
 
 OpenRouter bakiyenizi, Hermes sunucunuzun durumunu ve ChatGPT/Codex ile Claude limitlerini Android ana ekranında izleyin. Tek uygulamada dört ayrıntılı widget ve bir Durum Şeridi bulunur. Sunucu verileri kendi Hermes Agent + Homepage kurulumunuzdan gelir; Beszel isteğe bağlıdır. Erişim için Tailscale gibi özel bir ağ kullanın. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
 
+## Görünüm
+
+Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı. Kişisel bakiye ve profil bilgileri gizlendi. Görünen kullanım ve sistem değerleri, görüntünün alındığı ana aittir.
+
+<p>
+  <a href="docs/images/kota-widgetleri-gizlenmis.png"><img src="docs/images/kota-widgetleri-gizlenmis.png" alt="ChatGPT Kota ve Claude Limiti widget'larının gizlilik için düzenlenmiş görünümü" width="360"></a>
+  <a href="docs/images/bakiye-sunucu-widgetleri-gizlenmis.png"><img src="docs/images/bakiye-sunucu-widgetleri-gizlenmis.png" alt="OpenRouter Bakiye, Hermes Sunucu ve Durum Şeridi widget'larının gizlilik için düzenlenmiş görünümü" width="360"></a>
+</p>
+
 **Hızlı başlangıç:** [Sürümler](../../releases/latest) sayfasından APK'yı indirin, "bilinmeyen kaynaktan yükle" izni verin, uygulamayı açıp sunucu adresinizi (ve isterseniz OpenRouter anahtarınızı) girin, sonra widget'ları ekleyin. OR Bakiye widget'ı yalnız OpenRouter API anahtarıyla tek başına çalışır. Hermes Sunucu, ChatGPT Kota ve Claude Limiti kendi sunucunuzdaki verileri okur. Durum Şeridi ise bu widget'ların önbelleğini kullanır (aşağıya bakın). Depoda hiçbir gizli bilgi yoktur.
 
 | Widget | Boyut | Ne gösterir | Neye ihtiyaç duyar |
