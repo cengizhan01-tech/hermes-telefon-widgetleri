@@ -1,8 +1,8 @@
 # Hermes telefon widget'ları (OR Bakiye)
 
-Ev sunucusu için (Hermes Agent + Homepage + Beszel, Tailscale ile erişim) tek uygulamada **dört tam sayfa Android widget'ı**: OpenRouter bakiye ve harcama hızı, sunucu durumu, ChatGPT/Codex kotası ve Claude plan limiti. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
+Ev sunucusu için (Hermes Agent + Homepage + Beszel, Tailscale ile erişim) tek uygulamada **beş Android widget'ı**: OpenRouter bakiye ve harcama hızı, sunucu durumu, ChatGPT/Codex kotası ve Claude plan limiti. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
 
-**Hızlı başlangıç:** [Sürümler](../../releases/latest) sayfasından APK'yı indirin, "bilinmeyen kaynaktan yükle" izni verin, uygulamayı açıp sunucu adresinizi (ve isterseniz OpenRouter anahtarınızı) girin, sonra widget'ları ekleyin. OR Bakiye widget'ı yalnız OpenRouter API anahtarıyla tek başına çalışır; diğer üçü kendi sunucunuzdaki uç noktaları okur (aşağıya bakın). Depoda hiçbir gizli bilgi yoktur.
+**Hızlı başlangıç:** [Sürümler](../../releases/latest) sayfasından APK'yı indirin, "bilinmeyen kaynaktan yükle" izni verin, uygulamayı açıp sunucu adresinizi (ve isterseniz OpenRouter anahtarınızı) girin, sonra widget'ları ekleyin. OR Bakiye widget'ı yalnız OpenRouter API anahtarıyla tek başına çalışır. Hermes Sunucu, ChatGPT Kota ve Claude Limiti kendi sunucunuzdaki verileri okur. Durum Şeridi ise bu widget'ların önbelleğini kullanır (aşağıya bakın). Depoda hiçbir gizli bilgi yoktur.
 
 | Widget | Boyut | Ne gösterir | Neye ihtiyaç duyar |
 |---|---|---|---|
@@ -10,6 +10,7 @@ Ev sunucusu için (Hermes Agent + Homepage + Beszel, Tailscale ile erişim) tek 
 | **Hermes Sunucu** | 5×8 | sunucu durumu (işlemci/bellek/disk/açık kalma süresi), servisler, etkin Hermes modeli, kısayol düğmeleri | sunucu adresi + Homepage + Hermes paneli (+ Beszel) |
 | **ChatGPT Kota** | 5×9 | 5 saatlik ve haftalık Codex kotası, geri sayım, %90 / %85 üstünde bildirim | sunucu adresi + kota JSON'u |
 | **Claude Limiti** | 5×9 | 5 saatlik ve haftalık Claude planı, ek kullanım, tempo ve bitiş tahmini | sunucu adresi + kota JSON'u |
+| **Durum Şeridi** | 5×1 | Hermes durumu, kota yüzdeleri, sunucu CPU bilgisi ve uyarılar | diğer widget'ların önbelleği; doğrudan ağ isteği yok |
 
 ## Kurulum önerisi: Obtainium (otomatik güncellemeli)
 [Obtainium](https://github.com/ImranR98/Obtainium), uygulamaları doğrudan GitHub Sürümleri'nden kuran ve yeni sürüm çıkınca sizi uyaran ücretsiz bir Android uygulamasıdır. Bu depoyu bir kez eklersiniz, sonrası otomatik gider:
@@ -30,7 +31,7 @@ Her yeni sürüm aynı anahtarla imzalandığı için Obtainium onu mevcut uygul
    - OpenRouter anahtarınızı yapıştırıp kaydedin (yalnız bu telefonda saklanır).
    - Diğer widget'lar için **Sunucu adresi**ni girin (örnek: `100.x.y.z` ya da `sunucum.ornek.ts.net`). Port yazmayın.
    - İsterseniz Beszel girişini (salt okunur kullanıcı) kaydedin.
-4. Ana ekrana uzun basın → Widget'lar → **OR Bakiye / Hermes Sunucu / ChatGPT Kota / Claude Limiti**.
+4. Ana ekrana uzun basın → Widget'lar → **OR Bakiye / Hermes Sunucu / ChatGPT Kota / Claude Limiti / Durum Şeridi**.
 
 Sunucu adresi girilmezse sunucu widget'ları "Sunucu adresi girilmemiş" yazar; OR Bakiye anahtarla çalışmaya devam eder.
 
@@ -88,9 +89,12 @@ KEYSTORE_PASS=<kendi-parolan> TOOLS=/c/android-build bash build-orbakiye.sh
 - `.github/workflows/surum.yml`: etiket (`v*`) gönderilince APK'nın SHA-256'sını sürüm notuyla doğrulayıp Sürümü kendiliğinden oluşturan iş akışı
 
 ## Sürümler
-- **v1.1.1**: Hermes Sunucu widget'ının servis listesinden kullanılmayan "Actual Budget" çıkarıldı (kapalı görünüyordu); servis sayısı 10 → 9.
-- **v1.1.0**: Sunucu adresi artık derlemede değil uygulamada girilir (APK herkes için kullanılabilir). Örnek e-posta ipucu nötrleştirildi. Claude widget'ının seçici adı "Claude Limiti" oldu.
-- v1.0: ilk sürüm (yalnız kaynak).
+
+En güncel APK ve değişiklikler için [son sürüm sayfasına](https://github.com/cengizhan01-tech/hermes-telefon-widgetleri/releases/latest) bakın. Önceki notlar [tüm sürümlerde](https://github.com/cengizhan01-tech/hermes-telefon-widgetleri/releases) bulunur.
+
+## Geri bildirim
+
+Hata bildirmek veya öneri paylaşmak için [Issue açın](https://github.com/cengizhan01-tech/hermes-telefon-widgetleri/issues/new). Telefon modelini, Android sürümünü, ilgili widget'ı ve gördüğünüz sonucu yazın. Sunucu adresi, anahtar, parola veya kota JSON dosyası paylaşmayın.
 
 ## Lisans
 MIT. Bağlayıcı metin `LICENSE` dosyasındadır (İngilizce). Bilgi amaçlı Türkçe özet için `LISANS.tr.md` dosyasına bakın.
