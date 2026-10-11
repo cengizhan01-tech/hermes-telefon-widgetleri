@@ -1,6 +1,6 @@
 # Hermes telefon widget'ları (OR Bakiye)
 
-Ev sunucusu için (Hermes Agent + Homepage + Beszel, Tailscale ile erişim) tek uygulamada **beş Android widget'ı**: OpenRouter bakiye ve harcama hızı, sunucu durumu, ChatGPT/Codex kotası ve Claude plan limiti. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
+OpenRouter bakiyenizi, Hermes sunucunuzun durumunu ve ChatGPT/Codex ile Claude limitlerini Android ana ekranında izleyin. Tek uygulamada dört ayrıntılı widget ve bir Durum Şeridi bulunur. Sunucu verileri kendi Hermes Agent + Homepage kurulumunuzdan gelir; Beszel isteğe bağlıdır. Erişim için Tailscale gibi özel bir ağ kullanın. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
 
 **Hızlı başlangıç:** [Sürümler](../../releases/latest) sayfasından APK'yı indirin, "bilinmeyen kaynaktan yükle" izni verin, uygulamayı açıp sunucu adresinizi (ve isterseniz OpenRouter anahtarınızı) girin, sonra widget'ları ekleyin. OR Bakiye widget'ı yalnız OpenRouter API anahtarıyla tek başına çalışır. Hermes Sunucu, ChatGPT Kota ve Claude Limiti kendi sunucunuzdaki verileri okur. Durum Şeridi ise bu widget'ların önbelleğini kullanır (aşağıya bakın). Depoda hiçbir gizli bilgi yoktur.
 
