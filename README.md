@@ -4,7 +4,7 @@ OpenRouter bakiyenizi, Hermes sunucunuzun durumunu ve ChatGPT/Codex ile Claude l
 
 ## Görünüm
 
-Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı ve gizlilik için yapay zekâ ile düzenlendi. Kişisel bakiye ve profil bilgileri gizlendi. Görünen kullanım ve sistem değerleri, görüntünün alındığı ana aittir; görseller teknik kayıt değildir.
+Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı ve gizlilik için yapay zekâ ile düzenlendi. Kişisel bakiye ve profil bilgileri gizlendi. Görseller tanıtım amaçlıdır; görünen değerler güncel kullanım veya teknik doğrulama kanıtı değildir.
 
 <p>
   <a href="docs/images/kota-widgetleri-gizlenmis.png"><img src="docs/images/kota-widgetleri-gizlenmis.png" alt="ChatGPT Kota ve Claude Limiti widget'larının gizlilik için düzenlenmiş görünümü" width="360"></a>
@@ -55,7 +55,7 @@ Sunucu adresi girilmezse sunucu widget'ları "Sunucu adresi girilmemiş" yazar; 
 Telefon USB ile bağlıyken, "USB hata ayıklama" açıkken, depo klasöründe:
 
 ```powershell
-pwsh -File tools	elefona-kur.ps1
+pwsh -File tools/telefona-kur.ps1
 ```
 Betik en son sürümü GitHub'dan indirir, SHA-256 değerini sürüm notuyla karşılaştırır, kurar ve uygulamayı açar. Eski sürüm varsa üstüne güncellenir, ayarlarınız korunur. Yerel bir APK için `-Apk dosya.apk` verin.
 
@@ -82,7 +82,7 @@ Sunucunuzda 5 dakikada bir çalışan bir betikle üretip Homepage'in `images/` 
 `claude-limit.json` ayrıca `plan` ve `ekstra: {acik, harcanan, limit, para}` alanlarını taşır. Değerler yüzde, zamanlar epoch saniyesidir.
 
 ## Gizlilik ve güvenlik
-- Depoda **anahtar, parola, jeton ve imza anahtarı (keystore) yoktur**; `.gitignore` bunları engeller. OpenRouter anahtarı, Beszel girişi ve sunucu adresi **uygulamanın içinde** girilir, yalnız uygulamanın özel alanında (SharedPreferences) saklanır.
+- Yerel ve hassas dosyalar için `.gitignore` kuralları vardır. Bu kurallar gizli bilgilerin yanlışlıkla yayımlanmasını tek başına önlemez. Anahtar, parola, jeton veya imza anahtarı (keystore) paylaşmayın. OpenRouter anahtarı, Beszel girişi ve sunucu adresi **uygulamanın içinde** girilir, yalnız uygulamanın özel alanında (SharedPreferences) saklanır.
 - Uygulama sunucunuza düz `http` ile bağlanır (`res/xml/network_security_config.xml`: sunucu adresi kullanıcıya özel olduğu için düz http bütün adreslere serbesttir; https doğrulaması aynen sürer). Bu yüzden sunucunuzu **yalnız Tailscale gibi özel ve şifreli bir ağdan erişilebilir** tutun, internete açmayın.
 - APK'yı yalnız bu deponun Sürümler sayfasından indirin ve SHA-256 değerini sürüm notuyla karşılaştırın. İsterseniz aşağıdaki gibi kendiniz derleyin.
 
