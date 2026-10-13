@@ -1,4 +1,4 @@
-# Hermes telefon widget'ları (OR Bakiye)
+# Hermes telefon widget'ları
 
 OpenRouter bakiyenizi, Hermes sunucunuzun durumunu ve ChatGPT/Codex ile Claude limitlerini Android ana ekranında izleyin. Tek uygulamada dört ayrıntılı widget ve bir Durum Şeridi bulunur. Sunucu verileri kendi Hermes Agent + Homepage kurulumunuzdan gelir; Beszel isteğe bağlıdır. Erişim için Tailscale gibi özel bir ağ kullanın. Saf Java, Gradle yok (`aapt2 + javac + d8 + apksigner`).
 
@@ -11,7 +11,14 @@ Bu önizlemeler gerçek telefon ekran görüntülerinden hazırlandı ve gizlili
   <a href="docs/images/bakiye-sunucu-widgetleri-gizlenmis.png"><img src="docs/images/bakiye-sunucu-widgetleri-gizlenmis.png" alt="OpenRouter Bakiye, Hermes Sunucu ve Durum Şeridi widget'larının gizlilik için düzenlenmiş görünümü" width="360"></a>
 </p>
 
-**Hızlı başlangıç:** [Sürümler](../../releases/latest) sayfasından APK'yı indirin, "bilinmeyen kaynaktan yükle" izni verin, uygulamayı açıp sunucu adresinizi (ve isterseniz OpenRouter anahtarınızı) girin, sonra widget'ları ekleyin. OR Bakiye widget'ı yalnız OpenRouter API anahtarıyla tek başına çalışır. Hermes Sunucu, ChatGPT Kota ve Claude Limiti kendi sunucunuzdaki verileri okur. Durum Şeridi ise bu widget'ların önbelleğini kullanır (aşağıya bakın). Depoda hiçbir gizli bilgi yoktur.
+**Hızlı başlangıç:** [Son sürümden](https://github.com/cengizhan01-tech/hermes-telefon-widgetleri/releases/latest) APK'yı indirin ve uygulamayı kurun. Sonra ihtiyacınıza uygun yolu seçin:
+
+1. **Yalnız OpenRouter bakiyesi:** Uygulamaya kendi OpenRouter anahtarınızı girin. Ana ekrana **OR Bakiye** widget'ını ekleyin. Bakiye görünüyorsa kurulum tamamdır. Sunucu adresi gerekmez.
+2. **Kendi Hermes sunucum:** Uygulamaya yalnız özel ağınızdan erişilen sunucu adresini girin. **Hermes Sunucu** widget'ını ekleyin. Sunucu durumu güncelleniyorsa bağlantı çalışıyor. **ChatGPT Kota** ve **Claude Limiti** için kendi kota JSON dosyalarınız gerekir. **Durum Şeridi**, diğer widget'ların önbelleğini kullanır.
+
+**Kurz auf Deutsch:** Diese Android-Widgets zeigen je nach Einrichtung dein OpenRouter-Guthaben oder Daten deines eigenen Hermes-Servers. Für das Guthaben genügt dein OpenRouter-Zugang. Für Server- und Limitdaten brauchst du deine eigene Einrichtung. Die App-Oberfläche ist auf Türkisch.
+
+**Short in English:** These Android widgets can show your OpenRouter balance or data from your own Hermes server, depending on your setup. Balance needs your OpenRouter access. Server and limit data need your own setup. The app interface is in Turkish.
 
 | Widget | Boyut | Ne gösterir | Neye ihtiyaç duyar |
 |---|---|---|---|
